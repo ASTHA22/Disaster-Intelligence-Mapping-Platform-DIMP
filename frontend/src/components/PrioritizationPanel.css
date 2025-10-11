@@ -1,0 +1,64 @@
+.prioritization-panel {
+  background: var(--color-card);
+  border-radius: 10px;
+  margin-bottom: 18px;
+  padding: 18px 16px 12px 16px;
+  border: 1px solid var(--color-panel-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.prioritization-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: var(--color-text);
+}
+.priority-list {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+.priority-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-panel-border);
+  font-size: 15px;
+}
+.priority-item:last-child {
+  border-bottom: none;
+}
+.priority-rank {
+  font-weight: 700;
+  color: var(--color-accent);
+  width: 32px;
+}
+.priority-name {
+  flex: 1 1 120px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.priority-severity {
+  text-transform: capitalize;
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 12px;
+}
+.priority-score {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-danger);
+}
+.priority-critical .priority-severity {
+  color: #ef4444;
+}
+.priority-high .priority-severity {
+  color: #f59e0b;
+}
+.priority-medium .priority-severity {
+  color: #3b82f6;
+}
+.priority-low .priority-severity {
+  color: #10b981;
+}
