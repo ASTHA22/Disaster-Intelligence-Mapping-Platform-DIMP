@@ -4,8 +4,9 @@ services:
     env: python
     region: singapore
     plan: free
-    buildCommand: "cd backend && pip install -r requirements.txt"
-    startCommand: "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    buildCommand: "cd backend && pip install --no-cache-dir -r requirements.txt"
+    startCommand: "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT --timeout-keep-alive 120"
+    healthCheckPath: /
     envVars:
       - key: HERE_API_KEY
         sync: false
