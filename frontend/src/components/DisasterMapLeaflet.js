@@ -350,6 +350,41 @@ const DisasterMapLeaflet = ({ zones, floodAreas, infrastructure, displacement, s
         </>
       {/* End overlays fragment */}
     </MapContainer>
+    
+    {/* Map Legend */}
+    <div className="map-legend">
+      <h4>Map Legend</h4>
+      <div className="legend-items">
+        <div className="legend-item">
+          <AlertTriangle size={14} color="#ef4444" />
+          <span>Disaster Zones</span>
+        </div>
+        <div className="legend-item">
+          <Droplets size={14} color="#3b82f6" />
+          <span>Flood Areas</span>
+        </div>
+        <div className="legend-item">
+          <Home size={14} color="#f59e0b" />
+          <span>Infrastructure</span>
+        </div>
+        <div className="legend-item">
+          <Users size={14} color="#8b5cf6" />
+          <span>Displacement</span>
+        </div>
+        <div className="legend-item">
+          <span className="legend-marker" style={{ backgroundColor: '#10b981' }}></span>
+          <span>Rescue Stations</span>
+        </div>
+        <div className="legend-item">
+          <span className="legend-line" style={{ backgroundColor: '#3b82f6' }}></span>
+          <span>Routes</span>
+        </div>
+        <div className="legend-item">
+          <span className="legend-polygon" style={{ borderColor: '#10b981' }}></span>
+          <span>Coverage (5/10/15 min)</span>
+        </div>
+      </div>
+    </div>
   </div>
 );
 }
