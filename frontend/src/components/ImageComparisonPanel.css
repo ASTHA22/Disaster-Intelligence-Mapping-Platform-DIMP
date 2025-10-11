@@ -176,6 +176,8 @@
   padding: 20px;
   border-radius: 8px;
   border: 2px solid var(--border-color);
+  max-height: 800px;
+  overflow-y: auto;
 }
 
 .error-message {
@@ -241,11 +243,11 @@
 
 /* Change Metrics */
 .change-metrics {
-  display: grid;
-  grid-template-columns: 200px 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
   margin: 24px 0;
-  align-items: start;
+  align-items: stretch;
 }
 
 .change-percentage {
@@ -335,10 +337,6 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .change-metrics {
-    grid-template-columns: 1fr;
-  }
-  
   .images-comparison {
     flex-direction: column;
   }
@@ -349,5 +347,9 @@
   
   .location-inputs {
     grid-template-columns: 1fr;
+  }
+  
+  .results-section {
+    max-height: 600px;
   }
 }
