@@ -9,7 +9,7 @@ from typing import Dict, Optional, Tuple
 from dotenv import load_dotenv
 import base64
 from io import BytesIO
-from PIL import Image
+from PIL import Image, ImageDraw
 import numpy as np
 import time
 from functools import wraps
@@ -75,19 +75,55 @@ class HEREImageService:
         
         # Mock mode for testing (bypasses rate limits)
         if os.getenv("USE_MOCK_IMAGES", "false").lower() == "true":
-            print(f"🔧 MOCK MODE: Returning simulated reference image for {lat}, {lon}")
-            # Return a simple 1x1 pixel as base64 (for testing UI flow)
-            mock_image = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg=="
-            return {
-                "success": True,
-                "image_base64": mock_image,
-                "location": {"lat": lat, "lon": lon},
-                "zoom": zoom,
-                "dimensions": {"width": width, "height": height},
-                "map_type": map_type,
-                "format": "png",
-                "mock": True
-            }
+            print(f"🔧 MOCK MODE: Using sample HERE reference image for {lat}, {lon}")
+            
+            # Try to use a pre-downloaded sample HERE image
+            sample_path = os.path.join(os.path.dirname(__file__), "test_images", "mumbai_flood.jpg")
+            
+            try:
+                # Use one of the test images as a mock reference
+                if os.path.exists(sample_path):
+                    with open(sample_path, 'rb') as f:
+                        mock_image_data = base64.b64encode(f.read()).decode('utf-8')
+                else:
+                    # Fallback: Create a simple gray satellite-like image
+                    from PIL import Image, ImageDraw
+                    img = Image.new('RGB', (width, height), color=(200, 200, 200))
+                    draw = ImageDraw.Draw(img)
+                    # Draw some grid lines to simulate map
+                    for i in range(0, width, 50):
+                        draw.line([(i, 0), (i, height)], fill=(180, 180, 180), width=1)
+                    for i in range(0, height, 50):
+                        draw.line([(0, i), (width, i)], fill=(180, 180, 180), width=1)
+                    
+                    buffer = BytesIO()
+                    img.save(buffer, format='PNG')
+                    mock_image_data = base64.b64encode(buffer.getvalue()).decode('utf-8')
+                
+                return {
+                    "success": True,
+                    "image_base64": mock_image_data,
+                    "location": {"lat": lat, "lon": lon},
+                    "zoom": zoom,
+                    "dimensions": {"width": width, "height": height},
+                    "map_type": map_type,
+                    "format": "png",
+                    "mock": True
+                }
+            except Exception as e:
+                print(f"Mock mode error: {e}, using simple placeholder")
+                # Ultimate fallback
+                mock_image = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg=="
+                return {
+                    "success": True,
+                    "image_base64": mock_image,
+                    "location": {"lat": lat, "lon": lon},
+                    "zoom": zoom,
+                    "dimensions": {"width": width, "height": height},
+                    "map_type": map_type,
+                    "format": "png",
+                    "mock": True
+                }
         
         # Check cache first
         cache_key = f"{lat}_{lon}_{zoom}_{width}_{height}_{map_type}"
