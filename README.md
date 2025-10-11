@@ -4,6 +4,10 @@
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-green?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
+**Live Demo:** [Frontend (Vercel)](https://your-app.vercel.app) | [Backend API (Render)](https://dimp-backend.onrender.com)
+
+**Documentation:** [Vercel Deployment Guide](https://vercel.com/docs) | [Render Deployment Guide](https://render.com/docs)
+
 ## Overview
 
 **DIMP (Disaster Intelligence Mapping Platform)** is a real-time, AI-powered platform that ingests multi-modal data from satellite imagery, drone footage, and social media to provide actionable disaster intelligence for emergency management teams.
@@ -404,24 +408,43 @@ For issues or questions, please open a GitHub issue.
 
 ## Deployment
 
-### Backend (Render)
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+The platform is deployed using modern cloud services for maximum reliability and scalability.
 
-```bash
-# Deploy to Render using render.yaml
-# 1. Push to GitHub
-# 2. Connect Render to your repo
-# 3. Add HERE_API_KEY environment variable
-# 4. Deploy automatically
-```
+### Backend (Render)
+
+**Platform:** [Render](https://render.com)  
+**Service Type:** Web Service (Python)  
+**Deployment:** Automatic from GitHub  
+
+**Quick Deploy:**
+1. Push code to GitHub
+2. Create new Web Service on Render
+3. Connect to your GitHub repository
+4. Configure:
+   - **Build Command:** `cd backend && pip install -r requirements.txt`
+   - **Start Command:** `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`
+   - **Environment Variable:** `HERE_API_KEY=your_api_key`
+4. Deploy automatically
+
+**Documentation:** [Render Python Deployment Guide](https://render.com/docs/deploy-fastapi)
 
 ### Frontend (Vercel)
-```bash
-# Deploy to Vercel using vercel.json
-# 1. Push to GitHub
-# 2. Import project in Vercel
-# 3. Deploy automatically
-```
+
+**Platform:** [Vercel](https://vercel.com)  
+**Framework:** React  
+**Deployment:** Automatic from GitHub  
+
+**Quick Deploy:**
+1. Push code to GitHub
+2. Import project in Vercel
+3. Configure:
+   - **Framework Preset:** Create React App
+   - **Root Directory:** `frontend`
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `build`
+4. Deploy automatically
+
+**Documentation:** [Vercel React Deployment Guide](https://vercel.com/docs/frameworks/react)
 
 ---
 
