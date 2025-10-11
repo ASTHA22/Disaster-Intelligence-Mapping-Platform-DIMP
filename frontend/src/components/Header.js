@@ -8,7 +8,7 @@ const Header = ({ statistics }) => {
       <div className="header-left">
         <AlertTriangle className="logo-icon" size={32} />
         <div className="header-title">
-          <h1>DIMP</h1>
+          <h1>DIMP <span className="here-badge">Using HERE API</span></h1>
           <p>Disaster Intelligence Mapping Platform</p>
         </div>
       </div>
