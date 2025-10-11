@@ -4,7 +4,7 @@
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-green?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
-**Live Demo:** [Frontend (Vercel)](https://your-app.vercel.app) | [Backend API (Render)](https://dimp-backend.onrender.com)
+**Live Demo:** [Frontend (Vercel)](https://disaster-intelligence-mapping-platform-dimp-knn1o0ylk.vercel.app/) | [Backend API (Render)](https://dimp-backend.onrender.com)
 
 **Documentation:** [Vercel Deployment Guide](https://vercel.com/docs) | [Render Deployment Guide](https://render.com/docs)
 
@@ -198,7 +198,7 @@ The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE AP
   url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
 />
 
-// Routing & Analysis: HERE API (backend integration)
+// - Routing & Analysis: HERE API (backend integration)
 // - Evacuation route calculation
 // - Rescue coverage zones (5/10/15 min isolines)
 // - Geocoding and reverse geocoding
