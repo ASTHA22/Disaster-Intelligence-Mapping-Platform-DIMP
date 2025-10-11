@@ -199,6 +199,13 @@ class HEREImageService:
         try:
             # Load disaster image
             disaster_img = Image.open(disaster_image_path)
+            
+            # Convert to RGB if needed (remove alpha channel)
+            if disaster_img.mode == 'RGBA':
+                disaster_img = disaster_img.convert('RGB')
+            elif disaster_img.mode != 'RGB':
+                disaster_img = disaster_img.convert('RGB')
+            
             disaster_array = np.array(disaster_img)
             
             # Get HERE reference image
@@ -212,12 +219,25 @@ class HEREImageService:
             # Decode reference image
             ref_image_data = base64.b64decode(ref_result["image_base64"])
             ref_img = Image.open(BytesIO(ref_image_data))
+            
+            # Convert reference to RGB if needed
+            if ref_img.mode == 'RGBA':
+                ref_img = ref_img.convert('RGB')
+            elif ref_img.mode != 'RGB':
+                ref_img = ref_img.convert('RGB')
+            
             ref_array = np.array(ref_img)
             
             # Ensure same dimensions
-            if disaster_array.shape != ref_array.shape:
+            if disaster_array.shape[:2] != ref_array.shape[:2]:
                 ref_img = ref_img.resize((disaster_img.width, disaster_img.height))
                 ref_array = np.array(ref_img)
+            
+            # Final check: ensure both are RGB (3 channels)
+            if len(disaster_array.shape) == 2:
+                disaster_array = np.stack([disaster_array] * 3, axis=-1)
+            if len(ref_array.shape) == 2:
+                ref_array = np.stack([ref_array] * 3, axis=-1)
             
             # Calculate change detection metrics
             difference = np.abs(disaster_array.astype(float) - ref_array.astype(float))
