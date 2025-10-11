@@ -73,6 +73,22 @@ class HEREImageService:
         if not self.is_configured():
             return {"error": "HERE API key not configured"}
         
+        # Mock mode for testing (bypasses rate limits)
+        if os.getenv("USE_MOCK_IMAGES", "false").lower() == "true":
+            print(f"🔧 MOCK MODE: Returning simulated reference image for {lat}, {lon}")
+            # Return a simple 1x1 pixel as base64 (for testing UI flow)
+            mock_image = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg=="
+            return {
+                "success": True,
+                "image_base64": mock_image,
+                "location": {"lat": lat, "lon": lon},
+                "zoom": zoom,
+                "dimensions": {"width": width, "height": height},
+                "map_type": map_type,
+                "format": "png",
+                "mock": True
+            }
+        
         # Check cache first
         cache_key = f"{lat}_{lon}_{zoom}_{width}_{height}_{map_type}"
         if cache_key in self._cache:
