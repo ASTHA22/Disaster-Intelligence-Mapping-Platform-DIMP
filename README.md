@@ -4,35 +4,35 @@
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-green?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
-## 🚨 Overview
+## Overview
 
 **DIMP (Disaster Intelligence Mapping Platform)** is a real-time, AI-powered platform that ingests multi-modal data from satellite imagery, drone footage, and social media to provide actionable disaster intelligence for emergency management teams.
 
-### Innovation Challenge Objective ✅
+### Innovation Challenge Objective
 
 To develop a real-time, AI-powered platform that ingests multi-modal data — satellite images, drone footage, and social media content — to:
-- ✅ **Detect damaged infrastructure** - AI-powered damage detection with severity classification
-- ✅ **Identify flood-affected zones** - Real-time flood zone mapping and tracking
-- ✅ **Track population displacement** - Displacement zones with shelter capacity tracking
-- ✅ **Generate actionable, real-time disaster maps** - Interactive multi-layer maps for emergency teams
+- **Detect damaged infrastructure** - AI-powered damage detection with severity classification
+- **Identify flood-affected zones** - Real-time flood zone mapping and tracking
+- **Track population displacement** - Displacement zones with shelter capacity tracking
+- **Generate actionable, real-time disaster maps** - Interactive multi-layer maps for emergency teams
 
 ### Key Features (All Implemented)
 
-- ✅ **Damage Prioritization for rescue and repair** - Smart ranking system with responder feedback
-- ✅ **Satellite/Drone Hybrid Mapping** - Toggle between Standard, Satellite, and Drone map views
-- ✅ **AI-Powered Social Listening with location context** - NLP-based urgency classification with geolocation
-- ✅ **Real-Time Synchronization with field data** - Seamless 30-second polling without UI disruption
-- ✅ **Continuous Learning via feedback from responders** - Feedback system (1-4 scale) that reprioritizes zones
-- ✅ **HERE Maps Integration** - Full routing, isoline, and geocoding services
-- ✅ **Evacuation Route Planning** - Calculate optimal routes from disaster zones to shelters
-- ✅ **Rescue Coverage Visualization** - 5/10/15-minute response zone mapping
-- 🗺️ **Interactive Disaster Maps** - Multi-layer visualization with real-time updates
-- 🚨 **Real-Time Alerts** - Priority-based emergency notifications
-- 📊 **Analytics Dashboard** - Comprehensive disaster statistics and metrics
-- 📥 **Export Functionality** - Download reports as PDF, JSON, or CSV
-- 🌓 **Dark/Light Mode** - Theme switcher for different viewing conditions
+- **Damage Prioritization** - Smart ranking system with responder feedback for rescue and repair operations
+- **Satellite/Drone Hybrid Mapping** - Toggle between Standard, Satellite, and Drone map views
+- **AI-Powered Social Listening** - NLP-based urgency classification with geolocation context
+- **Real-Time Synchronization** - Seamless 30-second polling with field data without UI disruption
+- **Continuous Learning** - Feedback system (1-4 scale) that reprioritizes zones based on responder input
+- **HERE Maps Integration** - Full routing, isoline, and geocoding services
+- **Evacuation Route Planning** - Calculate optimal routes from disaster zones to shelters
+- **Rescue Coverage Visualization** - 5/10/15-minute response zone mapping
+- **Interactive Disaster Maps** - Multi-layer visualization with real-time updates
+- **Real-Time Alerts** - Priority-based emergency notifications
+- **Analytics Dashboard** - Comprehensive disaster statistics and metrics
+- **Export Functionality** - Download reports as PDF, JSON, or CSV
+- **Dark/Light Mode** - Theme switcher for different viewing conditions
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -52,7 +52,7 @@ To develop a real-time, AI-powered platform that ingests multi-modal data — sa
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -94,7 +94,7 @@ npm start
 
 The frontend will start at `http://localhost:3000`
 
-## 🗺️ HERE Maps Integration
+## HERE Maps Integration
 
 The platform includes **full HERE API integration** with backend services ready for production use.
 
@@ -201,12 +201,12 @@ The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE AP
 ```
 
 **Current Implementation:**
-- ✅ **Base Maps**: Leaflet.js with Carto tiles (no API key needed)
-- ✅ **Routing Services**: HERE API via backend (API key in backend/.env)
-- ✅ **Coverage Zones**: HERE Isoline API with flexible polyline decoding
-- ✅ **Route Visualization**: Polyline rendering on Leaflet maps
+- **Base Maps**: Leaflet.js with Carto tiles (no API key needed)
+- **Routing Services**: HERE API via backend (API key in backend/.env)
+- **Coverage Zones**: HERE Isoline API with flexible polyline decoding
+- **Route Visualization**: Polyline rendering on Leaflet maps
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Disaster Data
 
@@ -239,7 +239,7 @@ The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE AP
 - `GET /api/export/json` - Export all data as JSON
 - `GET /api/export/csv` - Export disaster zones as CSV
 
-## 🤖 AI Models
+## AI Models
 
 ### 1. Damage Detection
 - **Model**: ResNet50 (pre-trained on ImageNet)
@@ -256,7 +256,7 @@ The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE AP
 - **Task**: Urgency classification, entity extraction, location inference
 - **Output**: Urgency level, categories, priority score, action items
 
-## 📊 Technology Stack
+## Technology Stack
 
 ### Implementation vs Requirements
 
@@ -297,7 +297,7 @@ The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE AP
 | **Entity Recognition** | NLP text processing | Locations, casualties, resources | ✅ |
 | **Geolocation Inference** | Text-based location extraction | Coordinates from text | ✅ |
 
-## 🎨 Features Breakdown
+## Features Breakdown
 
 ### Dashboard
 - Real-time statistics
@@ -321,12 +321,12 @@ The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE AP
 - Location extraction
 - Timestamp tracking
 
-## 📈 Data Sources
+## Data Sources
 
 ### Real-Time Data Integration
-- ✅ **NASA EONET** - Real global disaster events (earthquakes, wildfires, storms)
-- ✅ **USGS Earthquake API** - Live earthquake data
-- ✅ **Social Media** - Real disaster-related posts (cached, refreshed every 60s)
+- **NASA EONET** - Real global disaster events (earthquakes, wildfires, storms)
+- **USGS Earthquake API** - Live earthquake data
+- **Social Media** - Real disaster-related posts (cached, refreshed every 60s)
 
 ### Simulation Data
 - 50 Mumbai disaster zones with realistic coordinates
@@ -336,7 +336,7 @@ The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE AP
 - Real-time social media feed (sample + live data)
 - 12 active alerts with priority classification
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - [ ] Real satellite API integration (Sentinel, Maxar)
 - [ ] Live drone feed processing
@@ -350,7 +350,7 @@ The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE AP
 - [ ] WebSocket real-time updates
 - [ ] Advanced HERE Maps features (traffic, weather layers)
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Backend tests
@@ -362,7 +362,7 @@ cd frontend
 npm test
 ```
 
-## 📝 Project Structure
+## Project Structure
 
 ```
 Reskill_hackathon/
@@ -390,19 +390,19 @@ Reskill_hackathon/
 └── README.md
 ```
 
-## 🤝 Contributing
+## Contributing
 
 This is an MVP built for a hackathon. Contributions welcome!
 
-## 📄 License
+## License
 
 MIT License - feel free to use for disaster relief efforts
 
-## 🆘 Support
+## Support
 
 For issues or questions, please open a GitHub issue.
 
-## 🚀 Deployment
+## Deployment
 
 ### Backend (Render)
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
@@ -425,6 +425,6 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 
 ---
 
-**Built with ❤️ for disaster relief and emergency management**
+**Built for disaster relief and emergency management**
 
-**Powered by HERE Maps API 🗺️ | Real-time AI Analysis 🤖 | Production Ready 🚀**
+Powered by HERE Maps API | Real-time AI Analysis | Production Ready
