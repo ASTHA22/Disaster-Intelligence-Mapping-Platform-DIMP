@@ -179,7 +179,34 @@ const ImageComparisonPanel = () => {
             {result.error ? (
               <div className="error-message">
                 <XCircle size={20} />
-                <span>Error: {result.error}</span>
+                <div style={{ flex: 1 }}>
+                  <strong>Error:</strong> {result.error}
+                  {result.status === 'rate_limited' && (
+                    <>
+                      <p style={{ marginTop: '8px', fontSize: '0.9rem', marginBottom: '12px' }}>
+                        💡 Tip: Wait {result.retry_after || 60} seconds and try again. 
+                        The free tier has request limits per second.
+                      </p>
+                      <button 
+                        onClick={() => {
+                          setResult(null);
+                          setTimeout(() => handleCompare(), 1000);
+                        }}
+                        style={{
+                          padding: '8px 16px',
+                          background: '#667eea',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          fontSize: '0.9rem'
+                        }}
+                      >
+                        Retry Now
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
             ) : (
               <>

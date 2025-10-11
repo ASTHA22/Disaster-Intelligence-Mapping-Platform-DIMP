@@ -48,17 +48,21 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: var(--primary-color);
+  background: #667eea;
   color: white;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s ease;
+  border: 2px solid #667eea;
+  font-size: 1rem;
 }
 
 .upload-button:hover {
-  background: var(--primary-hover);
+  background: #5568d3;
+  border-color: #5568d3;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .image-preview {

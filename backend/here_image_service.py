@@ -102,6 +102,15 @@ class HEREImageService:
             params["t"] = type_map.get(map_type, 0)
             
             response = requests.get(url, params=params, timeout=15)
+            
+            # Handle rate limiting with better error message
+            if response.status_code == 429:
+                return {
+                    "error": "Rate limit reached. Please wait 30-60 seconds and try again. HERE API limits requests per second.",
+                    "retry_after": 60,
+                    "status": "rate_limited"
+                }
+            
             response.raise_for_status()
             
             # Convert image to base64 for easy transmission
