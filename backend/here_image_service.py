@@ -77,8 +77,8 @@ class HEREImageService:
         if os.getenv("USE_MOCK_IMAGES", "false").lower() == "true":
             print(f"🔧 MOCK MODE: Using sample HERE reference image for {lat}, {lon}")
             
-            # Try to use a pre-downloaded sample HERE image
-            sample_path = os.path.join(os.path.dirname(__file__), "test_images", "mumbai_flood.jpg")
+            # Use normal/clean Mumbai image as reference (not the flood image!)
+            sample_path = os.path.join(os.path.dirname(__file__), "test_images", "normal_mumbai_reference.jpg")
             
             try:
                 # Use one of the test images as a mock reference
