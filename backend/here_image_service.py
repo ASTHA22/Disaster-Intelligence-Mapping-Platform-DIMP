@@ -11,8 +11,28 @@ import base64
 from io import BytesIO
 from PIL import Image
 import numpy as np
+import time
+from functools import wraps
 
 load_dotenv()
+
+def rate_limit(max_per_second=2):
+    """Rate limiter decorator - limits to max_per_second requests"""
+    min_interval = 1.0 / max_per_second
+    last_called = [0.0]
+    
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            elapsed = time.time() - last_called[0]
+            left_to_wait = min_interval - elapsed
+            if left_to_wait > 0:
+                time.sleep(left_to_wait)
+            ret = func(*args, **kwargs)
+            last_called[0] = time.time()
+            return ret
+        return wrapper
+    return decorator
 
 class HEREImageService:
     """HERE Map Image API service for cartographic reference images"""
@@ -20,11 +40,13 @@ class HEREImageService:
     def __init__(self):
         self.api_key = os.getenv("HERE_API_KEY", "")
         self.map_image_base = "https://image.maps.ls.hereapi.com/mia/1.6"
+        self._cache = {}  # Simple in-memory cache
         
     def is_configured(self) -> bool:
         """Check if HERE API key is configured"""
         return bool(self.api_key and self.api_key != "YOUR_HERE_API_KEY_HERE")
     
+    @rate_limit(max_per_second=2)  # Limit to 2 requests per second
     def get_reference_image(
         self, 
         lat: float, 
@@ -50,6 +72,12 @@ class HEREImageService:
         """
         if not self.is_configured():
             return {"error": "HERE API key not configured"}
+        
+        # Check cache first
+        cache_key = f"{lat}_{lon}_{zoom}_{width}_{height}_{map_type}"
+        if cache_key in self._cache:
+            print(f"✅ Returning cached image for {lat}, {lon}")
+            return self._cache[cache_key]
         
         try:
             # HERE Map Image API endpoint
@@ -79,7 +107,7 @@ class HEREImageService:
             # Convert image to base64 for easy transmission
             image_data = base64.b64encode(response.content).decode('utf-8')
             
-            return {
+            result = {
                 "success": True,
                 "image_base64": image_data,
                 "location": {"lat": lat, "lon": lon},
@@ -88,6 +116,12 @@ class HEREImageService:
                 "map_type": map_type,
                 "format": "png"
             }
+            
+            # Cache the result
+            self._cache[cache_key] = result
+            print(f"✅ Cached image for {lat}, {lon}")
+            
+            return result
             
         except requests.exceptions.RequestException as e:
             return {"error": f"Failed to fetch reference image: {str(e)}"}
