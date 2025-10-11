@@ -3,6 +3,34 @@
 
 ---
 
+## 💔 Why This Matters - The Human Cost
+
+### The Reality of Disasters in India
+
+**Every year in India:**
+- 🌊 **7,000+ deaths** from natural disasters
+- 🏠 **30 million people** affected by floods alone
+- 💰 **$3 billion** in economic losses
+- ⏱️ **72 hours** - Critical window for rescue operations
+
+### The Problem
+
+**2023 Himachal Pradesh Floods:**
+- 400+ deaths
+- 13,000+ houses destroyed
+- Rescue teams couldn't locate affected areas quickly
+- **No real-time damage assessment**
+- **No optimized evacuation routes**
+- **Unverified social media reports caused confusion**
+
+### Our Motivation
+
+> "Every minute counts in disaster response. We built DIMP to give emergency teams the intelligence they need to save lives."
+
+**The gap:** Traditional disaster response relies on manual assessment, taking days. Lives are lost in the delay.
+
+---
+
 ## 🎯 The Challenge
 
 **Build a real-time, AI-powered disaster intelligence platform**
@@ -13,6 +41,8 @@ Requirements:
 - Flood zone identification
 - Population displacement tracking
 - Actionable disaster maps
+
+**Our Goal:** Reduce response time from days to minutes.
 
 ---
 

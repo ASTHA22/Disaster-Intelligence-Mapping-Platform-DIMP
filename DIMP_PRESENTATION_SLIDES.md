@@ -16,7 +16,27 @@ Date: October 2025
 
 ---
 
-## SLIDE 2: The Problem
+## SLIDE 2: Why This Matters 💔
+
+**The Human Cost of Disasters in India**
+
+**Every Year:**
+- 🌊 7,000+ deaths from natural disasters
+- 🏠 30 million people affected by floods
+- 💰 $3 billion in economic losses
+- ⏱️ 72 hours - Critical rescue window
+
+**2023 Himachal Pradesh Floods:**
+- 400+ deaths, 13,000+ houses destroyed
+- No real-time damage assessment
+- No optimized evacuation routes
+- Confusion from unverified reports
+
+**The Gap:** Traditional response takes days. Lives are lost in the delay.
+
+---
+
+## SLIDE 3: The Problem
 
 **Disaster Response Challenges**
 
@@ -28,9 +48,11 @@ Date: October 2025
 
 **Result:** Slower response, more casualties
 
+> "Every minute counts in disaster response."
+
 ---
 
-## SLIDE 3: Our Solution - DIMP
+## SLIDE 4: Our Solution - DIMP
 
 **AI-Powered Disaster Intelligence Platform**
 
@@ -42,9 +64,11 @@ Date: October 2025
 
 **Built with HERE Maps API**
 
+**Our Goal:** Reduce response time from days to minutes.
+
 ---
 
-## SLIDE 4: HERE API Integration
+## SLIDE 5: HERE API Integration
 
 **4 HERE APIs - Fully Integrated**
 
