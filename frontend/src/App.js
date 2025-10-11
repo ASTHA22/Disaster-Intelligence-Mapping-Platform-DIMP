@@ -6,6 +6,7 @@ import PrioritizationPanel from './components/PrioritizationPanel';
 import AlertPanel from './components/AlertPanel';
 import RoutePanel from './components/RoutePanel';
 import RescueCoveragePanel from './components/RescueCoveragePanel';
+import ImageComparisonPanel from './components/ImageComparisonPanel';
 import SocialFeed from './components/SocialFeed';
 import Header from './components/Header';
 import { Sun, Moon } from 'lucide-react';
@@ -220,6 +221,7 @@ function App() {
             zones={disasterData.zones}
             onCoverageCalculated={(coverage, zone) => setCoverageData({ coverage, zone })}
           />
+          <ImageComparisonPanel />
           <Dashboard 
             statistics={disasterData.statistics}
             selectedLayer={selectedLayer}
