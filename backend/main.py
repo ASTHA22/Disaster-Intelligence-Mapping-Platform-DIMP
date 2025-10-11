@@ -254,7 +254,7 @@ async def get_statistics():
     damaged_buildings = sum(1 for infra in infrastructure if infra.get('type') == 'building' and not infra.get('operational', True))
     flooded_zones = len(flood_areas)
     displaced_population = sum(disp.get('displaced_count', 0) for disp in displacement)
-    rescue_operations = sum(1 for alert in alerts if alert.get('type') == 'rescue')
+    rescue_operations = sum(1 for alert in alerts if alert.get('category') == 'rescue' and alert.get('status') == 'active')
     emergency_shelters = sum(1 for disp in displacement if disp.get('shelter_capacity', 0) > 0)
     
     stats = {

@@ -169,19 +169,23 @@ class DataGenerator:
     def generate_alerts(self) -> List[Dict]:
         """Generate real-time alerts"""
         alert_types = [
-            "Building Collapse",
-            "Flash Flood Warning",
-            "Infrastructure Failure",
-            "Medical Emergency",
-            "Evacuation Order",
-            "Resource Shortage"
+            {"type": "Building Collapse", "category": "infrastructure"},
+            {"type": "Flash Flood Warning", "category": "environmental"},
+            {"type": "Infrastructure Failure", "category": "infrastructure"},
+            {"type": "Medical Emergency", "category": "rescue"},
+            {"type": "Evacuation Order", "category": "rescue"},
+            {"type": "Resource Shortage", "category": "logistics"},
+            {"type": "Rescue Operation", "category": "rescue"},
+            {"type": "Search and Rescue", "category": "rescue"}
         ]
         
         alerts = []
         for i in range(12):
+            alert_type = random.choice(alert_types)
             alert = {
                 "id": f"alert_{i+1}",
-                "type": random.choice(alert_types),
+                "type": alert_type["type"],
+                "category": alert_type["category"],
                 "severity": random.choice(["critical", "high", "medium"]),
                 "location": random.choice(self.locations),
                 "coordinates": {
