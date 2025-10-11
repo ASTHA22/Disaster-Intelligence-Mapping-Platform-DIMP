@@ -20,3 +20,4 @@ psycopg2-binary==2.9.11
 geoalchemy2==0.18.0
 alembic==1.16.5
 flexpolyline==0.1.0
+feedparser==6.0.11
