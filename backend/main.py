@@ -14,6 +14,7 @@ from damage_detector import DamageDetector
 from social_analyzer import SocialMediaAnalyzer
 from data_generator import DataGenerator
 from here_service import HEREService
+from here_image_service import HEREImageService
 from map_exporter import MapExporter
 from real_data_fetcher import RealDataFetcher
 from social_media_scraper import SocialMediaScraper
@@ -36,6 +37,7 @@ data_generator = DataGenerator(location="mumbai")  # Set to Mumbai
 real_data_fetcher = RealDataFetcher()  # Real-time data from NASA/USGS
 social_media_scraper = SocialMediaScraper()  # Real social media scraper
 here_service = HEREService()
+here_image_service = HEREImageService()
 map_exporter = MapExporter()
 
 # Cache for social media data
@@ -461,6 +463,67 @@ async def export_csv():
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"CSV export failed: {str(e)}")
+
+# ============================================================================
+# HERE Map Image API - Cartographic Reference Images
+# ============================================================================
+
+@app.get("/api/here/reference-image")
+async def get_reference_image(lat: float, lon: float, zoom: int = 15, map_type: str = "satellite.day"):
+    """
+    Get HERE cartographic reference image for a location
+    
+    Query params:
+        lat: Latitude
+        lon: Longitude
+        zoom: Zoom level (1-20, default 15)
+        map_type: normal.day, satellite.day, terrain.day, hybrid.day
+    """
+    result = here_image_service.get_reference_image(lat, lon, zoom, map_type=map_type)
+    return result
+
+@app.post("/api/here/compare-disaster-image")
+async def compare_disaster_image(file: UploadFile = File(...), lat: float = 0, lon: float = 0, zoom: int = 15):
+    """
+    Compare uploaded disaster image with HERE reference cartographic image
+    
+    Form data:
+        file: Disaster image file
+        lat: Location latitude
+        lon: Location longitude
+        zoom: Zoom level for reference
+    """
+    try:
+        # Save uploaded file temporarily
+        temp_path = f"/tmp/disaster_{datetime.now().timestamp()}.jpg"
+        with open(temp_path, "wb") as f:
+            content = await file.read()
+            f.write(content)
+        
+        # Compare with HERE reference
+        result = here_image_service.compare_disaster_image(temp_path, lat, lon, zoom)
+        
+        # Clean up
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Image comparison failed: {str(e)}")
+
+@app.get("/api/here/area-comparison")
+async def get_area_comparison(lat: float, lon: float, radius_km: float = 1.0, zoom: int = 14):
+    """
+    Get reference images for area comparison (before/after disaster)
+    
+    Query params:
+        lat: Center latitude
+        lon: Center longitude
+        radius_km: Radius to cover in kilometers
+        zoom: Zoom level
+    """
+    result = here_image_service.get_area_comparison(lat, lon, radius_km, zoom)
+    return result
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

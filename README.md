@@ -100,11 +100,22 @@ The frontend will start at `http://localhost:3000`
 
 ## HERE Maps Integration
 
-The platform includes **full HERE API integration** with backend services ready for production use.
+The platform includes **full HERE API integration** with backend services ready for production use, including cartographic reference images for disaster comparison.
 
 ### Current Implementation
 
-The backend (`backend/here_service.py`) provides a complete HERE API wrapper with the following services:
+The backend provides complete HERE API wrappers with the following services:
+
+**Core Services** (`backend/here_service.py`):
+- Routing & Navigation
+- Isoline (Coverage Zones)
+- Geocoding & Reverse Geocoding
+
+**Image Services** (`backend/here_image_service.py`):
+- Cartographic Reference Images
+- Satellite Imagery
+- Disaster Image Comparison
+- Change Detection
 
 #### 1. Geocoding & Reverse Geocoding
 ```python
@@ -187,6 +198,45 @@ python main.py
 | **Evacuation Routes** | `/api/here/evacuation-route` | Optimized routes avoiding disaster zones |
 | **Isoline** | `/api/here/isoline` | Show reachable areas for rescue teams |
 | **Rescue Coverage** | `/api/here/rescue-coverage` | Visualize 5/10/15-minute response zones |
+| **Reference Images** | `/api/here/reference-image` | Get cartographic reference images (satellite/terrain) |
+| **Image Comparison** | `/api/here/compare-disaster-image` | Compare disaster images with HERE reference maps |
+| **Area Comparison** | `/api/here/area-comparison` | Get reference images for before/after analysis |
+
+#### NEW: Cartographic Image Comparison
+
+**Use Case:** Compare disaster images (flood, damage) against HERE's cartographic reference images to detect changes.
+
+```python
+# Get HERE satellite reference image
+GET /api/here/reference-image?lat=19.0760&lon=72.8777&zoom=15&map_type=satellite.day
+
+# Compare disaster image with reference
+POST /api/here/compare-disaster-image
+Form Data:
+  - file: disaster_image.jpg
+  - lat: 19.0760
+  - lon: 72.8777
+  - zoom: 15
+
+Response:
+{
+  "success": true,
+  "change_percentage": 42.5,
+  "changes_detected": {
+    "water_increase": true,
+    "vegetation_loss": false,
+    "infrastructure_damage": true
+  },
+  "analysis": "HIGH: Significant changes detected | Possible flooding detected | Structural changes detected"
+}
+```
+
+**How it works:**
+1. Upload disaster image (satellite/drone photo)
+2. System fetches HERE cartographic reference for same location
+3. AI compares images pixel-by-pixel
+4. Detects: flooding, vegetation loss, infrastructure damage
+5. Returns change percentage and detailed analysis
 
 ### Frontend Integration
 
