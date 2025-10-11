@@ -56,9 +56,26 @@ coverage/
 .cache/
 
 # Hackathon prep files (not for submission)
+*_COMPLETE.md
+*_FIXED.md
+*_EXPLAINED.md
+*_IMPLEMENTED.md
+*_RUNNING.md
+*_STATUS.md
+*_GUIDE.md
+*_ANALYSIS.md
+*_CHECKLIST.md
 DEMO_GUIDE.md
 DYNAMIC_STATISTICS_IMPLEMENTED.md
 DEPLOYMENT.md
+DEPLOYMENT_COMPLETE.md
 progress.txt
 notes.txt
 TODO.md
+INDEX.md
+START_HERE.md
+QUICK_START.md
+QUICK_START_FRONTEND.md
+TROUBLESHOOTING.md
+FILE_STRUCTURE.md
+README_FINAL.md
