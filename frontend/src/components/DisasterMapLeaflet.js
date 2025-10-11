@@ -300,18 +300,21 @@ const DisasterMapLeaflet = ({ zones, floodAreas, infrastructure, displacement, s
                 if (!isoline.polygons || !isoline.polygons[0]) {
                   return null;
                 }
-                // Backend returns polygons as array of [lat, lng] coordinates directly
+                // Backend returns polygons as array of coordinates in [lng, lat]
                 const coords = isoline.polygons[0];
-                
-                // Filter out invalid coordinates (backend decoding issue causes huge values)
-                const positions = coords.filter(coord => 
-                  Array.isArray(coord) && 
-                  coord.length === 2 && 
-                  Math.abs(coord[0]) <= 90 && 
-                  Math.abs(coord[1]) <= 180
-                );
-                
+
+                // Validate ranges (lng, lat) then convert to Leaflet's [lat, lng]
+                const positions = coords
+                  .filter(coord =>
+                    Array.isArray(coord) &&
+                    coord.length === 2 &&
+                    Math.abs(coord[0]) <= 180 && // lng
+                    Math.abs(coord[1]) <= 90     // lat
+                  )
+                  .map(coord => [coord[1], coord[0]]); // [lat, lng]
+
                 if (positions.length < 3) {
+                  console.log('Not enough valid positions after [lng,lat] -> [lat,lng] conversion for isoline', idx);
                   return null;
                 }
                 return (

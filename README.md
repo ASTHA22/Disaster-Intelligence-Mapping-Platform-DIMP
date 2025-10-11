@@ -23,9 +23,13 @@ To develop a real-time, AI-powered platform that ingests multi-modal data — sa
 - ✅ **AI-Powered Social Listening with location context** - NLP-based urgency classification with geolocation
 - ✅ **Real-Time Synchronization with field data** - Seamless 30-second polling without UI disruption
 - ✅ **Continuous Learning via feedback from responders** - Feedback system (1-4 scale) that reprioritizes zones
+- ✅ **HERE Maps Integration** - Full routing, isoline, and geocoding services
+- ✅ **Evacuation Route Planning** - Calculate optimal routes from disaster zones to shelters
+- ✅ **Rescue Coverage Visualization** - 5/10/15-minute response zone mapping
 - 🗺️ **Interactive Disaster Maps** - Multi-layer visualization with real-time updates
 - 🚨 **Real-Time Alerts** - Priority-based emergency notifications
 - 📊 **Analytics Dashboard** - Comprehensive disaster statistics and metrics
+- 📥 **Export Functionality** - Download reports as PDF, JSON, or CSV
 - 🌓 **Dark/Light Mode** - Theme switcher for different viewing conditions
 
 ## 🏗️ Architecture
@@ -182,24 +186,25 @@ python main.py
 
 ### Frontend Integration
 
-The frontend currently uses **Leaflet.js with Carto tiles** for mapping, but is ready for HERE Maps integration:
+The frontend uses **Leaflet.js with Carto tiles** for base mapping and **HERE API services** for routing and analysis:
 
 ```javascript
-// Current: Leaflet.js (free, no API key required)
+// Map Visualization: Leaflet.js (free, no API key required)
 <TileLayer
   url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
 />
 
-// Future: HERE Maps (requires API key)
-// Uncomment and add API key in frontend/.env
-// REACT_APP_HERE_API_KEY=your_key
+// Routing & Analysis: HERE API (backend integration)
+// - Evacuation route calculation
+// - Rescue coverage zones (5/10/15 min isolines)
+// - Geocoding and reverse geocoding
 ```
 
-**Why Leaflet.js for now?**
-- No API key required for demo
-- Fast setup and deployment
-- Fully compatible with HERE tile services
-- Easy migration path to HERE Maps when API key is available
+**Current Implementation:**
+- ✅ **Base Maps**: Leaflet.js with Carto tiles (no API key needed)
+- ✅ **Routing Services**: HERE API via backend (API key in backend/.env)
+- ✅ **Coverage Zones**: HERE Isoline API with flexible polyline decoding
+- ✅ **Route Visualization**: Polyline rendering on Leaflet maps
 
 ## 📡 API Endpoints
 
@@ -218,9 +223,21 @@ The frontend currently uses **Leaflet.js with Carto tiles** for mapping, but is 
 - `POST /api/analyze-image` - Upload and analyze satellite/drone image
 - `POST /api/analyze-social-media` - Analyze social media post
 
-### Configuration
+### HERE Maps Services
 
-- `GET /api/here-config` - Get HERE API configuration
+- `POST /api/here/geocode` - Convert address to coordinates
+- `GET /api/here/reverse-geocode` - Convert coordinates to address
+- `POST /api/here/route` - Calculate route between two points
+- `POST /api/here/evacuation-route` - Calculate optimized evacuation route
+- `POST /api/here/isoline` - Calculate reachable areas (isolines)
+- `GET /api/here/rescue-coverage` - Get rescue team coverage zones
+- `GET /api/here-config` - Get HERE API configuration status
+
+### Export
+
+- `GET /api/export/pdf` - Export disaster report as PDF
+- `GET /api/export/json` - Export all data as JSON
+- `GET /api/export/csv` - Export disaster zones as CSV
 
 ## 🤖 AI Models
 
@@ -304,28 +321,34 @@ The frontend currently uses **Leaflet.js with Carto tiles** for mapping, but is 
 - Location extraction
 - Timestamp tracking
 
-## 📈 Sample Data
+## 📈 Data Sources
 
-The MVP includes realistic sample data for:
-- 15 disaster zones
-- 8 flood areas
+### Real-Time Data Integration
+- ✅ **NASA EONET** - Real global disaster events (earthquakes, wildfires, storms)
+- ✅ **USGS Earthquake API** - Live earthquake data
+- ✅ **Social Media** - Real disaster-related posts (cached, refreshed every 60s)
+
+### Simulation Data
+- 50 Mumbai disaster zones with realistic coordinates
+- 8 flood areas with water level tracking
 - 20 infrastructure damage points
-- 10 displacement zones
-- 15 social media posts
-- 12 active alerts
+- 10 displacement zones with shelter capacity
+- Real-time social media feed (sample + live data)
+- 12 active alerts with priority classification
 
 ## 🔮 Future Enhancements
 
 - [ ] Real satellite API integration (Sentinel, Maxar)
 - [ ] Live drone feed processing
-- [ ] Real social media API integration (Twitter/X, Facebook)
-- [ ] Predictive flood modeling
-- [ ] Weather data integration
+- [ ] Enhanced social media API integration (Twitter/X API, Facebook Graph API)
+- [ ] Predictive flood modeling with ML
+- [ ] Weather data integration (OpenWeather, NOAA)
 - [ ] Mobile app for field agents
 - [ ] Offline mode support
 - [ ] Multi-language support
-- [ ] Advanced routing with HERE APIs
-- [ ] Isoline visualization for rescue coverage
+- [ ] PostgreSQL database integration for persistent storage
+- [ ] WebSocket real-time updates
+- [ ] Advanced HERE Maps features (traffic, weather layers)
 
 ## 🧪 Testing
 
@@ -379,8 +402,29 @@ MIT License - feel free to use for disaster relief efforts
 
 For issues or questions, please open a GitHub issue.
 
+## 🚀 Deployment
+
+### Backend (Render)
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
+```bash
+# Deploy to Render using render.yaml
+# 1. Push to GitHub
+# 2. Connect Render to your repo
+# 3. Add HERE_API_KEY environment variable
+# 4. Deploy automatically
+```
+
+### Frontend (Vercel)
+```bash
+# Deploy to Vercel using vercel.json
+# 1. Push to GitHub
+# 2. Import project in Vercel
+# 3. Deploy automatically
+```
+
 ---
 
 **Built with ❤️ for disaster relief and emergency management**
 
-**Ready to integrate HERE APIs tomorrow! 🗺️**
+**Powered by HERE Maps API 🗺️ | Real-time AI Analysis 🤖 | Production Ready 🚀**

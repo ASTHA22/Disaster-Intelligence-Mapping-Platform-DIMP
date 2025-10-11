@@ -361,7 +361,13 @@ async def get_rescue_coverage(lat: float, lon: float):
     if not here_service.is_configured():
         raise HTTPException(status_code=503, detail="HERE API not configured")
     
-    result = here_service.get_rescue_coverage(
+    # Force reload of here_service module
+    import importlib
+    import here_service as hs_module
+    importlib.reload(hs_module)
+    temp_service = hs_module.HEREService()
+    
+    result = temp_service.get_rescue_coverage(
         rescue_station=(lat, lon)
     )
     

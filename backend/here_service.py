@@ -285,50 +285,76 @@ class HEREService:
             polyline_str: Encoded polyline string
             
         Returns:
-            List of [lon, lat] coordinates (GeoJSON format)
+            List of [lng, lat] coordinates (GeoJSON format)
         """
-        # Simplified decoder - HERE uses flexible polyline format
-        # For production, use the official HERE polyline library
-        # This is a basic implementation
+        try:
+            # Try using flexpolyline library if available
+            import flexpolyline
+            decoded = flexpolyline.decode(polyline_str)
+            # flexpolyline returns [(lat, lng, alt?), ...]
+            # Convert to [lng, lat] for GeoJSON
+            return [[coord[1], coord[0]] for coord in decoded]
+        except ImportError:
+            # Fallback to manual decoding
+            pass
         
         coordinates = []
         index = 0
-        lat = 0
-        lng = 0
         
         try:
+            # Skip header (first encoded value)
+            result = 0
+            shift = 0
+            while True:
+                b = ord(polyline_str[index]) - 63
+                index += 1
+                result |= (b & 0x1f) << shift
+                shift += 5
+                if b < 0x20:
+                    break
+            
+            # HERE uses precision 5 (divide by 100000)
+            factor = 100000
+            
+            lat = 0
+            lng = 0
+            
             while index < len(polyline_str):
-                # Decode latitude
+                # Decode latitude delta
                 result = 0
                 shift = 0
                 while True:
+                    if index >= len(polyline_str):
+                        break
                     b = ord(polyline_str[index]) - 63
                     index += 1
                     result |= (b & 0x1f) << shift
                     shift += 5
                     if b < 0x20:
                         break
-                
                 dlat = ~(result >> 1) if (result & 1) else (result >> 1)
                 lat += dlat
                 
-                # Decode longitude
+                # Decode longitude delta
                 result = 0
                 shift = 0
                 while True:
+                    if index >= len(polyline_str):
+                        break
                     b = ord(polyline_str[index]) - 63
                     index += 1
                     result |= (b & 0x1f) << shift
                     shift += 5
                     if b < 0x20:
                         break
-                
                 dlng = ~(result >> 1) if (result & 1) else (result >> 1)
                 lng += dlng
                 
-                coordinates.append([lng / 1e5, lat / 1e5])
-        except:
-            # If decoding fails, return empty array
-            pass
+                # Append [lng, lat] for GeoJSON format
+                coordinates.append([lng / factor, lat / factor])
+                
+        except Exception as e:
+            print(f"Polyline decode error: {e}")
+            return []
         
         return coordinates

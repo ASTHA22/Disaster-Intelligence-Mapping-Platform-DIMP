@@ -54,3 +54,11 @@ coverage/
 *.bak
 *.tmp
 .cache/
+
+# Hackathon prep files (not for submission)
+DEMO_GUIDE.md
+DYNAMIC_STATISTICS_IMPLEMENTED.md
+DEPLOYMENT.md
+progress.txt
+notes.txt
+TODO.md

@@ -28,6 +28,8 @@ const RescueCoveragePanel = ({ zones, onCoverageCalculated }) => {
 
       const data = await response.json();
       console.log('Coverage response:', data);
+      const firstCoords = data.isolines?.[0]?.polygons?.[0]?.slice(0, 3);
+      console.log('First 3 coordinates:', JSON.stringify(firstCoords));
       
       if (data.error) {
         setError(data.error);
