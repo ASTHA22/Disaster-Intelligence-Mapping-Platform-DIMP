@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Upload, Image as ImageIcon, AlertCircle, CheckCircle, XCircle } from 'lucide-react';
 import './ImageComparisonPanel.css';
 
+// Use environment variable for API URL, fallback to localhost for development
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 const ImageComparisonPanel = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -23,7 +26,7 @@ const ImageComparisonPanel = () => {
   const fetchReferenceImage = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/here/reference-image?lat=${location.lat}&lon=${location.lon}&zoom=${zoom}&map_type=satellite.day`
+        `${API_URL}/api/here/reference-image?lat=${location.lat}&lon=${location.lon}&zoom=${zoom}&map_type=satellite.day`
       );
       const data = await response.json();
       
@@ -56,7 +59,7 @@ const ImageComparisonPanel = () => {
       formData.append('zoom', zoom);
 
       const response = await fetch(
-        `http://localhost:8000/api/here/compare-disaster-image?lat=${location.lat}&lon=${location.lon}&zoom=${zoom}`,
+        `${API_URL}/api/here/compare-disaster-image?lat=${location.lat}&lon=${location.lon}&zoom=${zoom}`,
         {
           method: 'POST',
           body: formData
