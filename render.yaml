@@ -12,3 +12,5 @@ services:
         sync: false
       - key: PYTHON_VERSION
         value: "3.11.9"
+      - key: USE_MOCK_IMAGES
+        value: "true"
