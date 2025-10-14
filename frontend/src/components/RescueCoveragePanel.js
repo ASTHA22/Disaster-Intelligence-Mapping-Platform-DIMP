@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Target } from 'lucide-react';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 const RescueCoveragePanel = ({ zones, onCoverageCalculated }) => {
   const [selectedZone, setSelectedZone] = useState('');
   const [loading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ const RescueCoveragePanel = ({ zones, onCoverageCalculated }) => {
       console.log('Zone found:', zone);
       
       const response = await fetch(
-        `http://localhost:8000/api/here/rescue-coverage?lat=${zone.coordinates.lat}&lon=${zone.coordinates.lon}`
+        `${API_URL}/api/here/rescue-coverage?lat=${zone.coordinates.lat}&lon=${zone.coordinates.lon}`
       );
 
       const data = await response.json();

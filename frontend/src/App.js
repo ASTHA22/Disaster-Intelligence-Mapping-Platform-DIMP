@@ -123,7 +123,8 @@ function App() {
         duration: 2000
       });
 
-      const response = await fetch(`http://localhost:8000/api/export/${format}`);
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/api/export/${format}`);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Navigation, MapPin } from 'lucide-react';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 const RoutePanel = ({ zones, onRouteCalculated }) => {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
@@ -25,7 +27,7 @@ const RoutePanel = ({ zones, onRouteCalculated }) => {
       
       console.log('Zones found:', { originZone, destZone });
 
-      const response = await fetch('http://localhost:8000/api/here/route', {
+      const response = await fetch(`${API_URL}/api/here/route`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
