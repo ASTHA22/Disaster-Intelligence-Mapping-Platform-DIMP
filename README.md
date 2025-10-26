@@ -8,6 +8,9 @@
 
 **Live Demo:** [Live Demo](https://drive.google.com/file/d/1kdIjYttBiAIXG3q12RQ-1d0kN6LqAbPt/view?usp=drive_link) | **Presentation Deck:** [Presentation Deck](https://docs.google.com/presentation/d/1aAhc5AEBBet1HrA6ChlanV5N4FUKYmqm/edit?usp=drive_link&ouid=109901796126062648088&rtpof=true&sd=true)
 
+### 🏆 Awards & Recognition
+**Winner — HERE India Hackathon: Women in Tech 2025!**  
+
 ## Overview
 
 **DIMP (Disaster Intelligence Mapping Platform)** is a real-time, AI-powered platform that ingests multi-modal data from satellite imagery, drone footage, and social media to provide actionable disaster intelligence for emergency management teams.
