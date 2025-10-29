@@ -178,6 +178,9 @@ function App() {
       <div className="loading-screen">
         <div className="spinner"></div>
         <p>Loading Disaster Intelligence Platform...</p>
+        <p style={{ fontSize: '14px', color: '#94a3b8', marginTop: '10px' }}>
+          First load may take up to 60 seconds (backend waking up)
+        </p>
       </div>
     );
   }
